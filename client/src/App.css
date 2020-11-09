@@ -1,0 +1,20 @@
+.bg-cover {
+  background: center center;
+}
+
+.pricing-rates.business-rate:hover {
+  border-color: #2fd46e !important;
+}
+
+.pricing-rates.business-rate:hover .title {
+  color: #2fd46e !important;
+}
+
+.mt-6 {
+  margin-top: 6rem;
+}
+
+.custom-control-input:checked ~ .custom-control-label:before {
+  background-color: #2fd46e !important;
+  border-color: #2fd46e !important;
+}
