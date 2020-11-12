@@ -1,14 +1,17 @@
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.jpg";
 
-const Header = () => (
+const Header = ({ removeLogo }) => (
   <header id="topnav" className="defaultscroll sticky">
     <div className="container">
-      <div>
-        <Link className="logo" to="/">
-          <img src={logo} className="l-light" height="24" alt="" />
-        </Link>
-      </div>
+      {!removeLogo && (
+        <div>
+          <Link className="logo" to="/">
+            <img src={logo} className="l-light" height="24" alt="" />
+          </Link>
+        </div>
+      )}
+
       <div className="buy-button">
         <Link to="/login">
           <div className="btn btn-light login-btn-light">Login</div>
