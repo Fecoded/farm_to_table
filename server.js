@@ -17,7 +17,7 @@ const auth = require("./routes/auth");
 const user = require("./routes/user");
 const profile = require("./routes/profile");
 const admin = require("./routes/admin");
-const stall = require("./routes/stall");
+const Subscription = require("./routes/subscription");
 const forgotpassword = require("./routes/forgotpassword");
 
 // Parse Middleware
@@ -33,7 +33,7 @@ app.use("/api/auth", auth);
 app.use("/api/user", user);
 app.use("/api/profile", profile);
 app.use("/api/admin", admin);
-app.use("/api/stall", stall);
+app.use("/api/Subscription", Subscription);
 app.use("/api/forgotpassword", forgotpassword);
 
 const PORT = process.env.PORT || 5000;

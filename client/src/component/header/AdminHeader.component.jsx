@@ -2,19 +2,14 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { selectCurrentUser } from "../../redux/user/user.selectors";
-import { loadUser, logout } from "../../redux/user/user.actions";
+import { selectCurrentUser } from "../../redux/admin/admin.selectors";
+import { loadAdmin, logout } from "../../redux/admin/admin.actions";
 import logo from "../../assets/logo.jpg";
 
-const Header = ({
-  // removeLogo,
-  user: { isAuthenticated },
-  loadUser,
-  logout,
-}) => {
+const Header = ({ admin: { isAuthenticated }, loadAdmin, logout }) => {
   useEffect(() => {
-    loadUser();
-  }, [loadUser]);
+    loadAdmin();
+  }, [loadAdmin]);
 
   return (
     <header id="topnav" className="defaultscroll sticky">
@@ -50,9 +45,6 @@ const Header = ({
                     <Link to="">Home</Link>
                   </li>
                   <li>
-                    <Link to="/profile">Profile</Link>
-                  </li>
-                  <li>
                     <Link to="/product">Products</Link>
                   </li>
                 </ul>
@@ -66,9 +58,7 @@ const Header = ({
             <li>
               <Link to="/">Home</Link>
             </li>
-            <li>
-              <Link to="/profile">Profile</Link>
-            </li>
+
             <li className="has-submenu">
               <Link to="#!">Products</Link>
               <span className="menu-arrow"></span>
@@ -93,7 +83,7 @@ const Header = ({
 };
 
 const mapStateToProps = createStructuredSelector({
-  user: selectCurrentUser,
+  admin: selectCurrentUser,
 });
 
-export default connect(mapStateToProps, { loadUser, logout })(Header);
+export default connect(mapStateToProps, { loadAdmin, logout })(Header);

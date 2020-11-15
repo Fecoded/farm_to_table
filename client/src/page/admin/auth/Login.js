@@ -1,14 +1,28 @@
-const Login = () => {
+import { useState } from "react";
+import { connect } from "react-redux";
+import { login } from "../../../redux/admin/admin.actions";
+import Alert from "../../../component/alert/alert.component";
+
+const Login = ({ login }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    login({ email, password });
+  };
+
   return (
     <section className="bg-home d-flex align-items-center">
       <div className="bg-overlay bg-overlay-white"></div>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-5 col-md-8">
+            <Alert />
             <div className="card login-page bg-white shadow rounded border-0">
               <div className="card-body">
                 <h4 className="card-title text-center">Admin Login</h4>
-                <form className="login-form mt-4">
+                <form className="login-form mt-4" onSubmit={onSubmit}>
                   <div className="row">
                     <div className="col-lg-12">
                       <div className="form-group position-relative">
@@ -20,7 +34,9 @@ const Login = () => {
                           type="text"
                           className="form-control"
                           placeholder="username"
-                          name="username"
+                          name="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
                           required
                         />
                       </div>
@@ -36,6 +52,9 @@ const Login = () => {
                           type="password"
                           className="form-control"
                           placeholder="Password"
+                          name="password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
                           required
                         />
                       </div>
@@ -57,4 +76,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default connect(null, { login })(Login);

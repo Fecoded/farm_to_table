@@ -31,6 +31,12 @@ const Classic = lazy(() => import("./Classic"));
 const UserLogin = lazy(() => import("./user/auth/Login"));
 const UserRegister = lazy(() => import("./user/auth/Register"));
 const UserProfile = lazy(() => import("./user/Profile"));
+const ForgotPassword = lazy(() =>
+  import("../component/forgotpassword/forgotpassword.component")
+);
+const ChangePassword = lazy(() =>
+  import("../component/forgotpassword/changePassword.component")
+);
 
 const Routes = ({ admin: { isAuthenticated, user } }) => {
   return (
@@ -46,12 +52,14 @@ const Routes = ({ admin: { isAuthenticated, user } }) => {
             <Route path="/admin/login" component={AdminLogin} />
             <PrivateRouteUser path="/profile" component={UserProfile} />
             <Route path="/register" component={UserRegister} />
+            <Route path="/forgotpassword" component={ForgotPassword} />
+            <Route path="/changepassword/:token" component={ChangePassword} />
             <Route
               exact
               path="/admin/login"
               render={() =>
                 isAuthenticated && user ? (
-                  <Redirect to="/admin/upload" />
+                  <Redirect to="/admin/profile" />
                 ) : (
                   <AdminLogin />
                 )

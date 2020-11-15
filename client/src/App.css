@@ -18,3 +18,38 @@
   background-color: #2fd46e !important;
   border-color: #2fd46e !important;
 }
+
+/* #navigation .navigation-menu li a:hover {
+  color: #37af65 !important;
+} */
+
+.navlink {
+  display: flex;
+  margin-top: 10px;
+  justify-content: flex-end;
+  padding-right: 50px;
+}
+
+.navlink ul {
+  list-style: none;
+  display: flex;
+  margin-top: 20px;
+}
+
+.navlink ul li {
+  padding: 0 10px;
+}
+
+.navlink li a {
+  color: #2fd46e;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .small-hide {
+    display: block;
+  }
+}

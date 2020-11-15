@@ -1,16 +1,37 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
-const Login = () => {
+import Alert from "../../../component/alert/alert.component";
+
+import { login } from "../../../redux/user/user.actions";
+import { selectCurrentUser } from "../../../redux/user/user.selectors";
+
+const Login = ({ login, user: { isAuthenticated } }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    login({ email, password });
+  };
+
+  if (isAuthenticated) {
+    return <Redirect to="/profile" />;
+  }
+
   return (
     <section className="bg-home d-flex align-items-center">
       <div className="bg-overlay bg-overlay-white"></div>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-5 col-md-8">
+            <Alert />
             <div className="card login-page bg-white shadow rounded border-0">
               <div className="card-body">
                 <h4 className="card-title text-center">Login</h4>
-                <form className="login-form mt-4">
+                <form className="login-form mt-4" onSubmit={onSubmit}>
                   <div className="row">
                     <div className="col-lg-12">
                       <div className="form-group position-relative">
@@ -23,6 +44,9 @@ const Login = () => {
                           className="form-control"
                           placeholder="Email"
                           name="email"
+                          value={email}
+                          autoFocus={true}
+                          onChange={(e) => setEmail(e.target.value)}
                           required
                         />
                       </div>
@@ -38,6 +62,9 @@ const Login = () => {
                           type="password"
                           className="form-control"
                           placeholder="Password"
+                          name="password"
+                          autoComplete="off"
+                          onChange={(e) => setPassword(e.target.value)}
                           required
                         />
                       </div>
@@ -62,12 +89,12 @@ const Login = () => {
                           </div>
                         </div>
                         <p className="forgot-pass mb-0">
-                          <a
-                            href="auth-re-password-three.html"
+                          <Link
+                            to="/forgotpassword"
                             className="text-dark font-weight-bold"
                           >
                             Forgot password ?
-                          </a>
+                          </Link>
                         </p>
                       </div>
                     </div>
@@ -100,4 +127,8 @@ const Login = () => {
   );
 };
 
-export default Login;
+const mapStateToProps = createStructuredSelector({
+  user: selectCurrentUser,
+});
+
+export default connect(mapStateToProps, { login })(Login);

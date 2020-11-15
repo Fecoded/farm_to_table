@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import Header from "../../component/header/Header.component";
+import Header from "../../component/header/AdminHeader.component";
 import AdminProfile from "../../component/admin/profile.component";
 
 const Profile = () => (

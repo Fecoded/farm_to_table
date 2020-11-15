@@ -2,7 +2,6 @@ import {
   USER_LOADED,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  CLEAR_WALLET,
   AUTH_ERROR,
   LOGOUT,
 } from "./user.types";
@@ -87,6 +86,8 @@ export const register = ({
   try {
     const res = await axios.post("/api/user", body, config);
 
+    console.log(res);
+
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data.data,
@@ -109,5 +110,4 @@ export const register = ({
 // LOGOUT
 export const logout = () => (dispatch) => {
   dispatch({ type: LOGOUT });
-  dispatch({ type: CLEAR_WALLET });
 };

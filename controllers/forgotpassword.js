@@ -1,8 +1,8 @@
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const mailgun = require('mailgun-js');
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const mailgun = require("mailgun-js");
 
-const User = require('../models/User');
+const User = require("../models/User");
 
 //@route        POST api/forgotpassword
 //@desc         Send Password link to users
@@ -13,7 +13,7 @@ exports.postForgotPassword = async (req, res, next) => {
     let user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(400).json({ msg: 'Email Address not Found!' });
+      return res.status(400).json({ msg: "Email Address not Found!" });
     }
 
     const payload = { user: { id: user.id } };
@@ -36,15 +36,15 @@ exports.postForgotPassword = async (req, res, next) => {
     });
 
     const data = {
-      from: 'noreply@afwin.org',
+      from: "noreply@afwin.org",
       to: email,
-      subject: 'Password Reset Link',
+      subject: "Password Reset Link",
       text:
-        'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-        'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-        `http://ssgb.afwin.org/resetpassword/${token}` +
-        '\n\n' +
-        'If you did not request this, please ignore this email and your password will remain unchanged.\n',
+        "You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n" +
+        "Please click on the following link, or paste this into your browser to complete the process:\n\n" +
+        `http://localhost:3000/changepassword/${token}` +
+        "\n\n" +
+        "If you did not request this, please ignore this email and your password will remain unchanged.\n",
     };
     mg.messages().send(data, (err, body) => {
       if (err) {
@@ -52,12 +52,12 @@ exports.postForgotPassword = async (req, res, next) => {
       }
       return res.json({
         success: true,
-        msg: 'Email has been Sent, Please check your email',
+        msg: "Email has been Sent, Please check your email",
       });
     });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send("Server Error");
   }
 };
 
@@ -72,7 +72,7 @@ exports.updateForgotPassword = async (req, res, next) => {
     if (err) {
       return res.json({
         success: false,
-        msg: 'Expired link, Please send another link',
+        msg: "Expired link, Please send another link",
       });
     }
     const payload = decoded;
@@ -86,9 +86,9 @@ exports.updateForgotPassword = async (req, res, next) => {
         if (err) return;
         User.findOneAndUpdate({ _id: user.id }, { password: hash })
           .then(() =>
-            res.json({ success: true, msg: 'Password changed Successfully' })
+            res.json({ success: true, msg: "Password changed Successfully" })
           )
-          .catch((err) => res.status(500).json('Server Error'));
+          .catch((err) => res.status(500).json("Server Error"));
       });
     });
   });
